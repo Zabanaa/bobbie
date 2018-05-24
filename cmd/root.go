@@ -27,8 +27,8 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "cli-task",
-	Short: "Cli task is a task manager written in golang that manages your todo list",
+	Use:   "bobbie",
+	Short: "Bobbie is a task manager written in golang that manages your todo list",
 	// Long: ` Ipsum fugit eos sunt dignissimos nesciunt Dolores itaque dolorem sit reiciendis rem minus libero Dolorem similique velit sit rem numquam deserunt. Error illumillum
 // Sit sint lorem eos id iusto tenetur. Consequuntur expedita corporis placeat quasi eligendi. Commodi libero natus optio non temporibus, deserunt Dicta atque accusantium facere rerum accusantium Eveniet totam consequatur perferendis aliquam consequatur nulla dolores? `,
 	// // Uncomment the following line if your bare application
@@ -51,7 +51,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli-task.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.bobbie.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -73,7 +73,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".cli-task" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".cli-task")
+		viper.SetConfigName(".bobbie")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

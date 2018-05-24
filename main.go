@@ -14,7 +14,7 @@
 
 package main
 
-import "cli-task/cmd"
+import "bobbie/cmd"
 
 func main() {
 	cmd.Execute()
