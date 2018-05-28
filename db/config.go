@@ -30,3 +30,37 @@ func Init(dbPath string) error {
         return err
     })
 }
+
+// Create Task
+func CreateTask(task string) (int, error) {
+
+    // 1. takes a string
+    // 2. calls db.Update
+    // 3. updated the bucket
+
+}
+
+
+// Delete Task
+func DeleteTask(id int) error {
+
+    // 1. takes an int
+    // 2. deletes the task at that index
+}
+
+// Complete Task
+func CompleteTask(id int) error {
+    // 1. takes an int (ID)
+    // 2. sets the Done attribute to 1
+}
+
+// List All Tasks
+func ListCurrentTasks() error {
+    // 1. returns the entire database where complete is set to 0
+}
+
+// List Complete Tasks
+func ListCompleteTasks() error {
+    // returns the entire database where complete is set to 1
+}
+
