@@ -2,6 +2,7 @@ package db
 
 import (
     "time"
+    "encoding/binary"
     "github.com/boltdb/bolt"
 )
 
@@ -32,18 +33,29 @@ func Init(dbPath string) error {
 }
 
 // Create Task
-func CreateTask(task string) (int, error) {
+func CreateTask(newTask string) (int, error) {
 
-    // 1. takes a string
-    // 2. calls db.Update
-    // 3. updated the bucket
+    var id int
 
+    err := db.Update( func(tx *bolt.TX) error {
+
+        bucket := tx.Bucket(tasksBucket) // retrieve the bucket
+        id64, _ := bucket.NextSequence() // get the next auto incremented id
+        id = int(id64) // cast that id to an int (so that we can access it outside the closure) and return it
+        key := itob(id) // set that to the key (after casting it to a byte slice)
+        task := []byte(newTask) // cast the newTask as a byte slice
+        return bucket.Put(key, task) // insert the record into the database
+    })
+
+    if err != nil {
+       return -1, err
+    }
+
+    return id, nil
 }
-
 
 // Delete Task
 func DeleteTask(id int) error {
-
     // 1. takes an int
     // 2. deletes the task at that index
 }
@@ -64,3 +76,13 @@ func ListCompleteTasks() error {
     // returns the entire database where complete is set to 1
 }
 
+// Integer to Byte Slice
+func itob(value int) []byte {
+    b := make([]byte, 8)
+    binary.BigEndian.PutUint64(b, uint64(value))
+    return b
+}
+
+func btoi(b []byte) int {
+    return int(binary.BigEndian.Uint64(b))
+}
